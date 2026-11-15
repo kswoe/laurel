@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Laurel</AssemblyName>
+    <RootNamespace>HydraLogros</RootNamespace>
+    <Product>Laurel</Product>
+    <Version>1.2.0</Version>
+    <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <DebugType>none</DebugType>
+    <!-- Los controles propios no se usan desde el diseñador: no necesitan serialización de diseño -->
+    <NoWarn>$(NoWarn);WFO1000</NoWarn>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- Versión portable: dotnet publish src -c Release -p:Portable=true -o Portable
+       Lleva .NET dentro (no hace falta instalar nada) y guarda sus datos junto al .exe. -->
+  <PropertyGroup Condition="'$(Portable)' == 'true'">
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DefineConstants>$(DefineConstants);PORTABLE</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Compilación de prueba aislada (usa otro bloqueo de instancia única) -->
+  <PropertyGroup Condition="'$(Prueba)' == 'true'">
+    <DefineConstants>$(DefineConstants);PRUEBA</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" LogicalName="HydraLogros.app.ico" />
+    <!-- Los LEEME van DENTRO del .exe: el botón "Leeme" nunca lee los .md de la carpeta,
+         así que reescribirlos no cambia lo que muestra la app. -->
+    <EmbeddedResource Include="..\LEEME.md" LogicalName="leeme.es.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.en.md" LogicalName="leeme.en.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.pt-BR.md" LogicalName="leeme.pt.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.fr.md" LogicalName="leeme.fr.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.de.md" LogicalName="leeme.de.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.ru.md" LogicalName="leeme.ru.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.zh-CN.md" LogicalName="leeme.zh.md" WithCulture="false" />
+    <EmbeddedResource Include="..\leeme\README.ja.md" LogicalName="leeme.ja.md" WithCulture="false" />
+  </ItemGroup>
+
+</Project>

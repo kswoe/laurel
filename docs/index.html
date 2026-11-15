@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laurel — logros ganados para Hydra Launcher</title>
+<meta name="description" content="Laurel prepara tus juegos para que Hydra Launcher registre los logros cuando los consigues jugando. Nunca desbloquea logros por su cuenta.">
+<link rel="icon" type="image/png" href="img/icon-64.png">
+<meta property="og:title" content="Laurel — logros ganados, nunca regalados">
+<meta property="og:description" content="Prepara tus juegos para que Hydra Launcher registre los logros cuando los consigues jugando.">
+<meta property="og:image" content="img/icon-256.png">
+<style>
+  :root {
+    --fondo: #f4f5f9; --tarjeta: #ffffff; --borde: #e1e4ed; --texto: #1c1e2a; --suave: #5f6478;
+    --indigo: #3a248c; --acento: #543cc8; --turquesa: #0a96a0; --verde: #16965a; --oro: #f4be3c;
+    --ok: #16a34a; --steam: #2563eb; --rep: #ea800c; --appid: #be8c00; --no: #dc2626; --gris: #64748b;
+    --sombra: 0 1px 2px rgba(20,20,60,.06), 0 8px 24px rgba(20,20,60,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fondo: #12131a; --tarjeta: #1b1d27; --borde: #2c2f3d; --texto: #e7e8ef; --suave: #a2a7bb;
+      --acento: #8b7af0; --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; }
+  a { color: var(--acento); }
+  img { max-width: 100%; display: block; }
+  .ancho { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* idiomas: se muestra solo el texto del idioma activo */
+  html[lang="es"] [data-l="en"], html[lang="en"] [data-l="es"] { display: none !important; }
+
+  /* barra superior */
+  .barra { position: sticky; top: 0; z-index: 10; background: rgba(58,36,140,.92); backdrop-filter: blur(8px); }
+  .barra .ancho { display: flex; align-items: center; gap: 18px; height: 60px; }
+  .marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 600; font-size: 19px; }
+  .marca img { width: 32px; height: 32px; }
+  .barra nav { display: flex; gap: 18px; margin-left: auto; align-items: center; }
+  .barra nav a { color: rgba(255,255,255,.85); text-decoration: none; font-size: 15px; }
+  .barra nav a:hover { color: #fff; }
+  .idioma { border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); color: #fff; border-radius: 999px; padding: 5px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+  @media (max-width: 760px) { .barra nav a.opc { display: none; } }
+
+  /* portada */
+  .portada { background: linear-gradient(115deg, #3a248c 0%, #4632aa 50%, #0a96a0 100%); color: #fff; padding: 64px 0 0; overflow: hidden; }
+  .portada .ancho { display: grid; grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .portada h1 { font-size: clamp(40px, 7vw, 64px); line-height: 1.05; margin: 0; letter-spacing: -1px; }
+  .portada .lema { font-size: clamp(19px, 2.6vw, 24px); opacity: .92; margin: 6px 0 0; font-style: italic; }
+  .portada .bajada { max-width: 720px; margin: 0 auto; font-size: 18px; opacity: .9; }
+  .icono-grande { width: 112px; height: 112px; margin: 0 auto; filter: drop-shadow(0 10px 24px rgba(0,0,0,.3)); }
+  .botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .boton { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-weight: 600; text-decoration: none; transition: transform .15s; }
+  .boton:hover { transform: translateY(-1px); }
+  .boton.primario { background: #fff; color: var(--indigo); }
+  .boton.secundario { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+  .captura { margin: 18px auto 0; max-width: 1000px; border-radius: 14px 14px 0 0; overflow: hidden; box-shadow: 0 -10px 50px rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.2); border-bottom: 0; }
+
+  section { padding: 72px 0; }
+  h2 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 10px; letter-spacing: -.5px; }
+  .intro { color: var(--suave); max-width: 760px; font-size: 18px; margin: 0 0 36px; }
+
+  /* problema */
+  .tres { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 14px; padding: 22px; box-shadow: var(--sombra); }
+  .tarjeta h3 { margin: 0 0 6px; font-size: 18px; }
+  .tarjeta p { margin: 0; color: var(--suave); }
+  .emoji { font-size: 26px; display: block; margin-bottom: 8px; }
+
+  /* pasos */
+  .pasos { counter-reset: paso; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .paso { position: relative; padding-top: 54px; }
+  .paso::before { counter-increment: paso; content: counter(paso); position: absolute; top: 18px; left: 22px; width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--indigo), var(--turquesa)); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 15px; }
+
+  /* estados */
+  .estados { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 10px 18px; margin-top: 28px; }
+  .estado { display: flex; gap: 12px; align-items: baseline; }
+  .insignia { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .3px; }
+  .insignia::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .i-ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, transparent); }
+  .i-steam { color: var(--steam); background: color-mix(in srgb, var(--steam) 14%, transparent); }
+  .i-rep { color: var(--rep); background: color-mix(in srgb, var(--rep) 14%, transparent); }
+  .i-appid { color: var(--appid); background: color-mix(in srgb, var(--appid) 16%, transparent); }
+  .i-no { color: var(--no); background: color-mix(in srgb, var(--no) 14%, transparent); }
+  .i-gris { color: var(--gris); background: color-mix(in srgb, var(--gris) 16%, transparent); }
+  .estado span:last-child { color: var(--suave); }
+
+  /* funciones */
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .dos { display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+  @media (max-width: 860px) { .dos { grid-template-columns: 1fr; } }
+  .marco { border-radius: 12px; overflow: hidden; border: 1px solid var(--borde); box-shadow: var(--sombra); }
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding-left: 30px; position: relative; margin: 10px 0; }
+  ul.check li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: color-mix(in srgb, var(--verde) 16%, transparent); color: var(--verde); font-weight: 700; font-size: 13px; display: grid; place-items: center; }
+
+  /* comparación */
+  .alterna { background: var(--tarjeta); border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
+  .filosofias { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 30px; }
+  @media (max-width: 760px) { .filosofias { grid-template-columns: 1fr; } }
+  .filosofia { border-radius: 14px; padding: 24px; border: 1px solid var(--borde); background: var(--fondo); }
+  .filosofia h3 { margin: 0 0 4px; }
+  .filosofia .sub { color: var(--suave); font-size: 14px; margin: 0 0 12px; }
+  .filosofia.laurel { border-color: color-mix(in srgb, var(--acento) 45%, var(--borde)); }
+  .tabla-env { overflow-x: auto; border: 1px solid var(--borde); border-radius: 14px; }
+  table { border-collapse: collapse; width: 100%; min-width: 720px; background: var(--tarjeta); }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--borde); vertical-align: top; font-size: 15px; }
+  thead th { background: var(--fondo); font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--suave); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td:first-child { font-weight: 600; width: 28%; }
+  .si { color: var(--ok); font-weight: 700; }
+  .nunca { color: var(--acento); font-weight: 700; }
+  .nota { color: var(--suave); font-size: 14px; margin-top: 14px; }
+  .juntos { margin-top: 30px; border-radius: 14px; padding: 22px 24px; background: linear-gradient(115deg, color-mix(in srgb, var(--indigo) 10%, transparent), color-mix(in srgb, var(--turquesa) 10%, transparent)); border: 1px solid var(--borde); }
+  .juntos h3 { margin: 0 0 6px; }
+  .juntos p { margin: 0; }
+
+  /* descarga */
+  .descargas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .descarga h3 { margin: 0 0 4px; font-size: 20px; }
+  .descarga .peso { color: var(--suave); font-size: 14px; margin-bottom: 12px; }
+  .descarga .boton { background: var(--acento); color: #fff; margin-top: 14px; }
+  .descarga.portable .boton { background: var(--verde); }
+  code { font-family: "Cascadia Mono", Consolas, monospace; font-size: .9em; background: color-mix(in srgb, var(--acento) 10%, transparent); padding: 1px 6px; border-radius: 5px; }
+
+  details { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 14px 18px; margin-bottom: 10px; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { color: var(--suave); margin: 10px 0 0; }
+
+  footer { background: #171826; color: #b9bdd0; padding: 40px 0; font-size: 14px; }
+  footer .libre { color: #6ee7a8; font-weight: 700; letter-spacing: .6px; font-size: 15px; margin-bottom: 10px; }
+  footer a { color: #c9c2ff; }
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="ancho">
+    <a class="marca" href="#"><img src="img/icon-64.png" alt="">Laurel</a>
+    <nav>
+      <a class="opc" href="#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+      <a class="opc" href="#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+      <a class="opc" href="#ham">Laurel &amp; HAM</a>
+      <a class="opc" href="#descargar"><span data-l="es">Descargar</span><span data-l="en">Download</span></a>
+      <button class="idioma" id="cambiar" type="button" aria-label="Cambiar idioma / Change language">English</button>
+    </nav>
+  </div>
+</header>
+
+<div class="portada">
+  <div class="ancho">
+    <img class="icono-grande" src="img/icon-256.png" alt="Laurel">
+    <div>
+      <h1>Laurel</h1>
+      <p class="lema"><span data-l="es">Logros ganados, nunca regalados.</span><span data-l="en">Achievements earned, never handed out.</span></p>
+    </div>
+    <p class="bajada">
+      <span data-l="es">Prepara tus juegos para que <strong>Hydra Launcher registre los logros cuando los consigues jugando</strong>. Detecta, diagnostica y repara lo que impide que se sincronicen, y nunca desbloquea un logro por su cuenta.</span>
+      <span data-l="en">Prepares your games so that <strong>Hydra Launcher records achievements when you earn them while playing</strong>. It detects, diagnoses and fixes what keeps them from syncing, and never unlocks an achievement by itself.</span>
+    </p>
+    <div class="botones">
+      <a class="boton primario" data-repo="/releases/latest">⬇ <span data-l="es">Descargar para Windows</span><span data-l="en">Download for Windows</span></a>
+      <a class="boton secundario" data-repo="">GitHub</a>
+    </div>
+    <div class="captura">
+      <img data-l="es" src="img/laurel-es.png" alt="Ventana principal de Laurel con una biblioteca de ejemplo" width="1550" height="1050">
+      <img data-l="en" src="img/laurel-en.png" alt="Laurel main window with an example library" width="1550" height="1050">
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="ancho">
+    <h2><span data-l="es">¿Por qué algunos juegos no registran logros?</span><span data-l="en">Why don't some games record achievements?</span></h2>
+    <p class="intro"><span data-l="es">Hydra lee los logros desde los archivos que escriben los emuladores de Steam. Si falta una pieza, juegas, consigues el logro… y Hydra nunca se entera.</span><span data-l="en">Hydra reads achievements from the files Steam emulators write. If a piece is missing, you play, you earn the achievement… and Hydra never finds out.</span></p>
+    <div class="tres">
+      <div class="tarjeta"><span class="emoji">🧩</span>
+        <h3><span data-l="es">Falta la lista de logros</span><span data-l="en">The achievement list is missing</span></h3>
+        <p><span data-l="es">Goldberg / gbe_fork necesita <code>steam_settings\achievements.json</code> y el AppID para saber qué logros existen. Sin ellos, no guarda nada.</span><span data-l="en">Goldberg / gbe_fork needs <code>steam_settings\achievements.json</code> and the AppID to know which achievements exist. Without them, it saves nothing.</span></p></div>
+      <div class="tarjeta"><span class="emoji">📂</span>
+        <h3><span data-l="es">Se guardan donde Hydra no mira</span><span data-l="en">They're saved where Hydra doesn't look</span></h3>
+        <p><span data-l="es">GOG Galaxy o RLE sí registran tus logros, pero en lugares que Hydra no lee.</span><span data-l="en">GOG Galaxy or RLE do record your achievements, but in places Hydra doesn't read.</span></p></div>
+      <div class="tarjeta"><span class="emoji">❓</span>
+        <h3><span data-l="es">No sabes qué tiene cada juego</span><span data-l="en">You don't know what each game uses</span></h3>
+        <p><span data-l="es">¿Es la DLL original de Valve, un emulador conocido o uno que no guarda logros? Sin mirar dentro, es imposible saberlo.</span><span data-l="en">Is it Valve's original DLL, a known emulator, or one that saves no achievements? Without looking inside, there's no way to tell.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="alterna">
+  <div class="ancho">
+    <h2><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></h2>
+    <p class="intro"><span data-l="es">Ábrelo, déjalo junto al reloj y olvídate.</span><span data-l="en">Open it, leave it next to the clock and forget about it.</span></p>
+    <div class="pasos">
+      <div class="tarjeta paso"><h3><span data-l="es">Revisa</span><span data-l="en">Scan</span></h3><p><span data-l="es">Recorre solo tus bibliotecas de juegos y detecta el emulador o plataforma de cada uno.</span><span data-l="en">Walks only your game libraries and detects each game's emulator or platform.</span></p></div>
+      <div class="tarjeta paso"><h3><span data-l="es">Diagnostica</span><span data-l="en">Diagnose</span></h3><p><span data-l="es">Te dice en claro qué le pasa a cada juego y qué puedes hacer.</span><span data-l="en">Tells you plainly what's wrong with each game and what you can do.</span></p></div>
+      <div class="tarjeta paso"><h3><span data-l="es">Prepara</span><span data-l="en">Prepare</span></h3><p><span data-l="es">Crea los archivos que faltan con la lista oficial de logros de Steam. Nunca sobrescribe nada.</span><span data-l="en">Creates the missing files with Steam's official achievement list. Never overwrites anything.</span></p></div>
+      <div class="tarjeta paso"><h3><span data-l="es">Vigila</span><span data-l="en">Watch</span></h3><p><span data-l="es">Cuando instalas un juego, espera a que termine y lo prepara solo.</span><span data-l="en">When you install a game, it waits for it to finish and prepares it automatically.</span></p></div>
+    </div>
+    <div class="estados">
+      <div class="estado"><span class="insignia i-ok">OK</span><span data-l="es">Hydra ya encuentra sus logros.</span><span data-l="en">Hydra already finds its achievements.</span></div>
+      <div class="estado"><span class="insignia i-ok" data-l="es">LISTO</span><span class="insignia i-ok" data-l="en">READY</span><span data-l="es">Configurado: el archivo aparecerá con tu primer logro.</span><span data-l="en">Set up: the file appears with your first achievement.</span></div>
+      <div class="estado"><span class="insignia i-steam">STEAM</span><span data-l="es">DLL original de Valve (firma verificada): logros de tu cuenta.</span><span data-l="en">Valve's original DLL (signature verified): achievements from your account.</span></div>
+      <div class="estado"><span class="insignia i-rep" data-l="es">REPARABLE</span><span class="insignia i-rep" data-l="en">FIXABLE</span><span data-l="es">Le falta la lista de logros: Laurel puede crearla.</span><span data-l="en">Missing the achievement list: Laurel can create it.</span></div>
+      <div class="estado"><span class="insignia i-appid" data-l="es">SIN APPID</span><span class="insignia i-appid" data-l="en">NO APPID</span><span data-l="es">Asígnale el AppID con un clic derecho.</span><span data-l="en">Set its AppID with a right-click.</span></div>
+      <div class="estado"><span class="insignia i-no" data-l="es">NO SOPORTADO</span><span class="insignia i-no" data-l="en">UNSUPPORTED</span><span data-l="es">Su emulador no guarda logros: hay una guía paso a paso.</span><span data-l="en">Its emulator saves no achievements: there's a step-by-step guide.</span></div>
+      <div class="estado"><span class="insignia i-gris" data-l="es">SIN STEAM</span><span class="insignia i-gris" data-l="en">NO STEAM</span><span data-l="es">Indica qué plataforma usa: GOG, Epic, Ubisoft, Microsoft Store…</span><span data-l="en">Shows which platform it uses: GOG, Epic, Ubisoft, Microsoft Store…</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="funciones">
+  <div class="ancho">
+    <h2><span data-l="es">Todo lo que hace</span><span data-l="en">Everything it does</span></h2>
+    <p class="intro"><span data-l="es">Pensado para que Hydra registre lo que de verdad consigues, sin tocar lo que no le corresponde.</span><span data-l="en">Built so that Hydra records what you actually earn, without touching what isn't its business.</span></p>
+    <div class="rejilla">
+      <div class="tarjeta"><span class="emoji">🔍</span><h3><span data-l="es">Identificador de DLL</span><span data-l="en">DLL identifier</span></h3><p><span data-l="es">Verifica la firma digital de <code>steam_api.dll</code> con Windows, sin internet, y busca firmas de 13 emuladores conocidos. Solo lectura.</span><span data-l="en">Verifies <code>steam_api.dll</code>'s digital signature with Windows, offline, and looks for signatures of 13 known emulators. Read-only.</span></p></div>
+      <div class="tarjeta"><span class="emoji">🌉</span><h3><span data-l="es">Puentes de logros</span><span data-l="en">Achievement bridges</span></h3><p><span data-l="es">Copia a Hydra los logros que <strong>ya conseguiste</strong> en GOG Galaxy o RLE. Lee una copia temporal de la base de datos, nunca la original. Nunca inventa logros.</span><span data-l="en">Copies the achievements you <strong>already earned</strong> in GOG Galaxy or RLE to Hydra. Reads a temporary copy of the database, never the original. Never invents achievements.</span></p></div>
+      <div class="tarjeta"><span class="emoji">🧭</span><h3><span data-l="es">Guía para juegos no soportados</span><span data-l="en">Guide for unsupported games</span></h3><p><span data-l="es">Copia de seguridad de la DLL, enlace oficial de gbe_fork y comprobación final. Tú haces el cambio: Laurel no descarga ni instala emuladores.</span><span data-l="en">DLL backup, official gbe_fork link and a final check. You make the change: Laurel doesn't download or install emulators.</span></p></div>
+      <div class="tarjeta"><span class="emoji">↩️</span><h3><span data-l="es">Todo se puede deshacer</span><span data-l="en">Everything can be undone</span></h3><p><span data-l="es">Anota cada archivo que crea. “Deshacer” los manda a la papelera, y solo si nadie los ha tocado después.</span><span data-l="en">Records every file it creates. “Undo” sends them to the Recycle Bin, and only if nobody touched them since.</span></p></div>
+      <div class="tarjeta"><span class="emoji">🔑</span><h3><span data-l="es">Tu clave de Steam, protegida</span><span data-l="en">Your Steam key, protected</span></h3><p><span data-l="es">La clave de API vive solo en memoria y nunca se guarda. Consultas pausadas y limitadas para un uso normal de tu clave.</span><span data-l="en">The API key lives only in memory and is never saved. Paced, capped requests so your key's usage stays normal.</span></p></div>
+      <div class="tarjeta"><span class="emoji">🌍</span><h3><span data-l="es">8 idiomas y versión portable</span><span data-l="en">8 languages and a portable build</span></h3><p><span data-l="es">Español, inglés, portugués, francés, alemán, ruso, chino y japonés. La versión portable no necesita instalar nada.</span><span data-l="en">Spanish, English, Portuguese, French, German, Russian, Chinese and Japanese. The portable build needs nothing installed.</span></p></div>
+    </div>
+
+    <div class="dos" style="margin-top:56px">
+      <div class="marco"><img src="img/laurel-filter-en.png" alt="Filter by status" width="1550" height="1050" loading="lazy"></div>
+      <div>
+        <h3 style="font-size:24px;margin:0 0 8px"><span data-l="es">Seguro por diseño</span><span data-l="en">Secure by design</span></h3>
+        <ul class="check">
+          <li><span data-l="es">Nunca sobrescribe ni borra tus archivos: solo crea los que faltan.</span><span data-l="en">Never overwrites or deletes your files: it only creates missing ones.</span></li>
+          <li><span data-l="es">Solo puede escribir 4 tipos de archivo concretos; cualquier otra ruta se bloquea.</span><span data-l="en">It can only write 4 specific kinds of file; any other path is blocked.</span></li>
+          <li><span data-l="es">No escanea carpetas del sistema, no sigue enlaces simbólicos ni descarga archivos de OneDrive.</span><span data-l="en">Doesn't scan system folders, follow symbolic links or download OneDrive files.</span></li>
+          <li><span data-l="es">Solo se conecta a <code>api.steampowered.com</code> por HTTPS. Nunca ejecuta programas de tus juegos.</span><span data-l="en">Only connects to <code>api.steampowered.com</code> over HTTPS. Never runs programs from your games.</span></li>
+          <li><span data-l="es">Registro sin datos personales y modo simulación para ver qué haría antes de hacerlo.</span><span data-l="en">A log without personal data, and a simulation mode to see what it would do first.</span></li>
+          <li><span data-l="es">El manual va dentro del .exe: aunque alguien edite los archivos de la carpeta, la app muestra el original.</span><span data-l="en">The manual is built into the .exe: even if someone edits the files in the folder, the app shows the original.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ham" class="alterna">
+  <div class="ancho">
+    <h2>Laurel &amp; HAM</h2>
+    <p class="intro">
+      <span data-l="es"><a href="https://github.com/Nekomates/hydra-achievement-manager" rel="noopener">Hydra Achievement Manager (Project HAM)</a> es un gestor de logros completo y muy bien hecho. Laurel no es su sustituto: son dos herramientas con objetivos distintos, y pueden convivir.</span>
+      <span data-l="en"><a href="https://github.com/Nekomates/hydra-achievement-manager" rel="noopener">Hydra Achievement Manager (Project HAM)</a> is a complete, well-made achievement manager. Laurel isn't a replacement for it: they're two tools with different goals, and they can live side by side.</span>
+    </p>
+
+    <div class="filosofias">
+      <div class="filosofia laurel">
+        <h3>Laurel</h3>
+        <p class="sub"><span data-l="es">“Que el juego lo registre”</span><span data-l="en">“Let the game record it”</span></p>
+        <p><span data-l="es">Repara lo que impide que tus juegos registren logros, para que cada logro llegue a Hydra en el momento en que lo consigues jugando. Nunca marca un logro por ti.</span><span data-l="en">Fixes what keeps your games from recording achievements, so each one reaches Hydra the moment you earn it while playing. It never marks an achievement for you.</span></p>
+      </div>
+      <div class="filosofia">
+        <h3>HAM</h3>
+        <p class="sub"><span data-l="es">“Gestiona tus logros”</span><span data-l="en">“Manage your achievements”</span></p>
+        <p><span data-l="es">Reúne tus logros de Hydra, Steam y RetroAchievements en un solo lugar para verlos, buscarlos, exportarlos y editarlos, incluido desbloquearlos manualmente con la fecha que elijas.</span><span data-l="en">Brings your Hydra, Steam and RetroAchievements achievements into one place to view, search, export and edit them, including unlocking them manually with the date you choose.</span></p>
+      </div>
+    </div>
+
+    <div class="tabla-env">
+      <table>
+        <thead><tr><th></th><th>Laurel</th><th>HAM</th></tr></thead>
+        <tbody>
+          <tr><td><span data-l="es">Desbloquear logros a mano</span><span data-l="en">Unlock achievements by hand</span></td>
+              <td><span class="nunca"><span data-l="es">Nunca, por diseño</span><span data-l="en">Never, by design</span></span></td>
+              <td><span data-l="es">Sí: uno a uno o en lote, con fecha actual, aleatoria o personalizada</span><span data-l="en">Yes: one by one or in bulk, with the current, a random or a custom date</span></td></tr>
+          <tr><td><span data-l="es">Detectar el emulador de cada juego instalado</span><span data-l="en">Detect each installed game's emulator</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Goldberg, CODEX, RUNE, OnlineFix, CreamAPI, TENOKE… + firma digital de la DLL</span><span data-l="en">Goldberg, CODEX, RUNE, OnlineFix, CreamAPI, TENOKE… + the DLL's digital signature</span></td>
+              <td><span data-l="es">Detecta el formato del archivo de logros al leerlo o escribirlo</span><span data-l="en">Detects the achievement file's format when reading or writing it</span></td></tr>
+          <tr><td><span data-l="es">Reparar juegos que no sincronizan</span><span data-l="en">Fix games that don't sync</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Crea <code>achievements.json</code> y <code>steam_appid.txt</code> desde la lista oficial de Steam</span><span data-l="en">Creates <code>achievements.json</code> and <code>steam_appid.txt</code> from Steam's official list</span></td>
+              <td>—</td></tr>
+          <tr><td><span data-l="es">Vigilar instalaciones nuevas</span><span data-l="en">Watch for new installs</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Prepara cada juego nuevo cuando termina de instalarse</span><span data-l="en">Prepares each new game once it finishes installing</span></td>
+              <td><span data-l="es">Vigila las carpetas de logros y actualiza su vista al instante</span><span data-l="en">Watches achievement folders and refreshes its view instantly</span></td></tr>
+          <tr><td><span data-l="es">Logros de GOG Galaxy y RLE en Hydra</span><span data-l="en">GOG Galaxy and RLE achievements in Hydra</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Puentes que copian solo los logros ya conseguidos</span><span data-l="en">Bridges that copy only already-earned achievements</span></td>
+              <td>—</td></tr>
+          <tr><td><span data-l="es">Formatos de logros que escribe</span><span data-l="en">Achievement formats it writes</span></td>
+              <td><span data-l="es">Solo el formato Goldberg (para los puentes)</span><span data-l="en">Only the Goldberg format (for the bridges)</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Más de 10: CODEX, RUNE, OnlineFix, Goldberg, EMPRESS, SKIDROW, CreamAPI, 3DM…</span><span data-l="en">More than 10: CODEX, RUNE, OnlineFix, Goldberg, EMPRESS, SKIDROW, CreamAPI, 3DM…</span></td></tr>
+          <tr><td><span data-l="es">Explorar logros, rareza e imágenes</span><span data-l="en">Browse achievements, rarity and images</span></td>
+              <td>—</td>
+              <td><span class="si">✓</span></td></tr>
+          <tr><td>Steam · RetroAchievements</td>
+              <td><span data-l="es">Usa la API de Steam solo para descargar la lista de logros</span><span data-l="en">Uses the Steam API only to download the achievement list</span></td>
+              <td><span class="si">✓</span> <span data-l="es">Steamworks, Steam Web API y RetroAchievements</span><span data-l="en">Steamworks, Steam Web API and RetroAchievements</span></td></tr>
+          <tr><td><span data-l="es">Deshacer / copias de seguridad</span><span data-l="en">Undo / backups</span></td>
+              <td><span data-l="es">Deshacer: a la papelera, solo lo que nadie modificó</span><span data-l="en">Undo: to the Recycle Bin, only what nobody modified</span></td>
+              <td><span data-l="es">Copias de seguridad y restauración</span><span data-l="en">Backup and restore</span></td></tr>
+          <tr><td><span data-l="es">Sistemas</span><span data-l="en">Systems</span></td>
+              <td>Windows</td>
+              <td><span data-l="es">Windows y Linux (Linux en pruebas)</span><span data-l="en">Windows and Linux (Linux in testing)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">
+      <span data-l="es">Comparación hecha con buena fe a partir del README, las notas de versión y el código público de HAM v1.0.6, revisados en noviembre de 2026. “—” significa que no encontramos esa función. Si algo cambió o no es exacto, abre una issue y lo corregimos.</span>
+      <span data-l="en">Comparison made in good faith from HAM v1.0.6's README, release notes and public code, reviewed in November 2026. “—” means we didn't find that feature. If something changed or isn't accurate, open an issue and we'll fix it.</span>
+    </p>
+    <div class="juntos">
+      <h3><span data-l="es">¿Cuál usar?</span><span data-l="en">Which one should I use?</span></h3>
+      <p><span data-l="es">Si quieres que tus logros reflejen exactamente lo que juegas, Laurel se encarga de que cada juego los registre solo. Si además quieres explorarlos, buscarlos o recuperar un progreso que perdiste, HAM es una gran herramienta para eso. Funcionan bien juntas.</span><span data-l="en">If you want your achievements to reflect exactly what you play, Laurel makes sure every game records them on its own. If you also want to explore them, search them or recover progress you lost, HAM is a great tool for that. They work well together.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="descargar">
+  <div class="ancho">
+    <h2><span data-l="es">Descargar</span><span data-l="en">Download</span></h2>
+    <p class="intro"><span data-l="es">Gratis, de uso libre y software libre (GPL-3.0). Para Windows 10 y 11 (64 bits).</span><span data-l="en">Free to use and free software (GPL-3.0). For Windows 10 and 11 (64-bit).</span></p>
+    <div class="descargas">
+      <div class="tarjeta descarga">
+        <h3><span data-l="es">Normal</span><span data-l="en">Standard</span></h3>
+        <div class="peso">≈ 0,8 MB · <span data-l="es">necesita</span><span data-l="en">requires</span> <a href="https://dotnet.microsoft.com/download/dotnet/10.0" rel="noopener">.NET 10 Desktop Runtime</a></div>
+        <p><span data-l="es">La opción más ligera si ya tienes .NET 10 o no te importa instalarlo.</span><span data-l="en">The lightest option if you already have .NET 10 or don't mind installing it.</span></p>
+        <a class="boton" data-repo="/releases/latest">⬇ Laurel.exe</a>
+      </div>
+      <div class="tarjeta descarga portable">
+        <h3>Portable</h3>
+        <div class="peso">≈ 44 MB · <span data-l="es">sin instalar nada</span><span data-l="en">nothing to install</span></div>
+        <p><span data-l="es">Lleva .NET dentro y guarda su configuración en su propia carpeta. Ideal para un USB.</span><span data-l="en">Carries .NET inside and keeps its settings in its own folder. Great for a USB drive.</span></p>
+        <a class="boton" data-repo="/releases/latest">⬇ Laurel-portable.zip</a>
+      </div>
+    </div>
+
+    <div class="dos" style="margin-top:56px">
+      <div>
+        <h3 style="font-size:24px;margin:0 0 12px"><span data-l="es">Preguntas frecuentes</span><span data-l="en">FAQ</span></h3>
+        <details><summary><span data-l="es">¿Laurel desbloquea logros?</span><span data-l="en">Does Laurel unlock achievements?</span></summary>
+          <p><span data-l="es">No. Solo prepara el juego para que registre los logros cuando los consigues. Los puentes copian únicamente logros que GOG Galaxy o RLE ya registraron como conseguidos.</span><span data-l="en">No. It only prepares the game so it records achievements when you earn them. The bridges copy only achievements that GOG Galaxy or RLE already recorded as earned.</span></p></details>
+        <details><summary><span data-l="es">¿Para qué necesita mi clave de API de Steam?</span><span data-l="en">Why does it need my Steam API key?</span></summary>
+          <p><span data-l="es">Para descargar la lista oficial de logros de cada juego. La clave es gratuita, solo vive en memoria y nunca se guarda en disco ni en el registro.</span><span data-l="en">To download each game's official achievement list. The key is free, lives only in memory and is never saved to disk or the log.</span></p></details>
+        <details><summary><span data-l="es">¿Tengo que jugar los juegos de GOG desde GOG Galaxy?</span><span data-l="en">Do I have to launch GOG games from GOG Galaxy?</span></summary>
+          <p><span data-l="es">No: puedes lanzarlos desde Hydra. Solo hace falta que GOG Galaxy esté abierto, con tu sesión iniciada, mientras juegas, y que el juego esté en tu cuenta.</span><span data-l="en">No: you can launch them from Hydra. GOG Galaxy just needs to be running and signed in while you play, and the game must be in your account.</span></p></details>
+        <details><summary><span data-l="es">¿Instala o descarga emuladores?</span><span data-l="en">Does it install or download emulators?</span></summary>
+          <p><span data-l="es">No. Para los juegos NO SOPORTADO ofrece una guía con copia de seguridad y el enlace oficial de gbe_fork, pero el cambio lo haces tú.</span><span data-l="en">No. For UNSUPPORTED games it offers a guide with a backup and gbe_fork's official link, but you make the change yourself.</span></p></details>
+      </div>
+      <div class="marco"><img src="img/laurel-readme-es.png" alt="Manual integrado / Built-in manual" width="1125" height="1025" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ancho">
+    <div class="libre"><span data-l="es">*** ESTA HERRAMIENTA ES DE USO LIBRE ***</span><span data-l="en">*** THIS TOOL IS FREE TO USE ***</span></div>
+    <p><span data-l="es">Software libre bajo la licencia <a data-repo="/blob/main/LICENSE">GPL-3.0</a>.</span><span data-l="en">Free software under the <a data-repo="/blob/main/LICENSE">GPL-3.0</a> license.</span></p>
+    <p><span data-l="es">Laurel es un proyecto independiente. No está afiliado a Hydra Launcher, a Project HAM, a Valve ni a GOG. Todas las marcas pertenecen a sus dueños. Las capturas usan una biblioteca de ejemplo con juegos inventados.</span><span data-l="en">Laurel is an independent project. It isn't affiliated with Hydra Launcher, Project HAM, Valve or GOG. All trademarks belong to their owners. Screenshots use an example library with made-up games.</span></p>
+    <p><a data-repo="">GitHub</a> · <a data-repo="/issues"><span data-l="es">Reportar un problema</span><span data-l="en">Report an issue</span></a> · <a data-repo="/releases"><span data-l="es">Versiones</span><span data-l="en">Releases</span></a></p>
+  </div>
+</footer>
+
+<script>
+  // ⚙ Cambia esto por tu repositorio de GitHub: "usuario/repositorio"
+  const REPO = "kswoe/laurel";
+
+  document.querySelectorAll("[data-repo]").forEach(a => {
+    a.href = "https://github.com/" + REPO + a.dataset.repo;
+    a.rel = "noopener";
+  });
+
+  // Idioma: el guardado por el visitante, si no el del navegador (español o inglés).
+  const raiz = document.documentElement;
+  function usar(l) {
+    raiz.lang = l;
+    document.getElementById("cambiar").textContent = l === "es" ? "English" : "Español";
+    document.title = l === "es" ? "Laurel — logros ganados para Hydra Launcher" : "Laurel — earned achievements for Hydra Launcher";
+    try { localStorage.setItem("laurel-idioma", l); } catch (e) {}
+  }
+  let guardado = null;
+  try { guardado = localStorage.getItem("laurel-idioma"); } catch (e) {}
+  usar(guardado || ((navigator.language || "es").toLowerCase().startsWith("es") ? "es" : "en"));
+  document.getElementById("cambiar").addEventListener("click", () => usar(raiz.lang === "es" ? "en" : "es"));
+</script>
+</body>
+</html>

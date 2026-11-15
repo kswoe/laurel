@@ -1,0 +1,25 @@
+# Compilación
+bin/
+obj/
+
+# Ejecutables y datos de uso: van en GitHub Releases, no en el repositorio.
+# App/ contiene config.json, cambios.json, estado.json y registro.txt, que son datos personales del usuario.
+App/
+Portable/
+Release/
+*.zip
+
+# Datos que la app crea junto al .exe, estén donde estén
+config.json
+cambios.json
+estado.json
+registro.txt
+registro.txt.anterior
+
+# Varios
+.vs/
+.vscode/
+*.user
+.claude/
+Thumbs.db
+desktop.ini
