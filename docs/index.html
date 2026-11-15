@@ -26,7 +26,7 @@
   html { scroll-behavior: smooth; }
   body { margin: 0; background: var(--fondo); color: var(--texto); font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; }
   a { color: var(--acento); }
-  img { max-width: 100%; display: block; }
+  img { max-width: 100%; height: auto; display: block; }
   .ancho { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
   /* idiomas: se muestra solo el texto del idioma activo */
@@ -132,9 +132,94 @@
   footer { background: #171826; color: #b9bdd0; padding: 40px 0; font-size: 14px; }
   footer .libre { color: #6ee7a8; font-weight: 700; letter-spacing: .6px; font-size: 15px; margin-bottom: 10px; }
   footer a { color: #c9c2ff; }
+
+  /* ---------- iconos (sprite SVG propio) ---------- */
+  .ico { width: 48px; height: 48px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 14px; color: var(--acento);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--acento) 18%, transparent), color-mix(in srgb, var(--turquesa) 18%, transparent));
+    border: 1px solid color-mix(in srgb, var(--acento) 22%, transparent); }
+  .ico svg { width: 25px; height: 25px; }
+  .tarjeta { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .tarjeta:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--acento) 40%, var(--borde)); }
+  .tarjeta:hover .ico { animation: rebote .6s ease; }
+  @keyframes rebote { 40% { transform: translateY(-4px) rotate(-6deg); } 70% { transform: translateY(1px) rotate(3deg); } }
+
+  ul.iconos { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  ul.iconos li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: center; background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 12px; padding: 12px 16px; }
+  ul.iconos .li-ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; color: var(--verde); background: color-mix(in srgb, var(--verde) 14%, transparent); }
+  ul.iconos .li-ico svg { width: 21px; height: 21px; }
+
+  /* ---------- ilustraciones animadas ---------- */
+  .ilus { width: 100%; max-width: 440px; margin: 0 auto; }
+  .ilus svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .ilus .pie { text-align: center; color: var(--suave); font-size: 15px; margin-top: 6px; }
+  .onda { fill: none; stroke: var(--acento); stroke-width: 2; transform-origin: 200px 200px; animation: onda 3.6s ease-out infinite; opacity: 0; }
+  .onda.d2 { animation-delay: 1.2s; } .onda.d3 { animation-delay: 2.4s; }
+  @keyframes onda { 0% { transform: scale(.6); opacity: .55; } 100% { transform: scale(1.65); opacity: 0; } }
+  .orbita { fill: none; stroke: color-mix(in srgb, var(--acento) 45%, transparent); stroke-width: 1.5; stroke-dasharray: 4 9; transform-origin: 200px 200px; animation: gira 40s linear infinite; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .flota { animation: flota 5s ease-in-out infinite; }
+  @keyframes flota { 50% { transform: translateY(-8px); } }
+  .sat .bob { animation: flota 4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+  .sat-fondo { fill: var(--tarjeta); stroke: var(--borde); stroke-width: 1.5; filter: drop-shadow(0 4px 10px rgba(30,20,90,.15)); }
+  .sat-ico { color: var(--acento); }
+  .pagina { fill: var(--tarjeta); stroke: var(--borde); stroke-width: 2; }
+  .renglon { stroke: color-mix(in srgb, var(--suave) 45%, transparent); stroke-width: 5; stroke-linecap: round; }
+  .renglon.dibuja { stroke-dasharray: 80; stroke-dashoffset: 80; animation: escribe 4s ease-in-out infinite; }
+  .renglon.r2 { animation-delay: .4s; } .renglon.r3 { animation-delay: .8s; } .renglon.r4 { animation-delay: 1.2s; }
+  @keyframes escribe { 0% { stroke-dashoffset: 80; } 35%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 80; } }
+  .chip rect { fill: var(--tarjeta); stroke: color-mix(in srgb, var(--acento) 40%, var(--borde)); stroke-width: 1.5; }
+  .chip text { fill: var(--acento); font: 700 15px "Segoe UI", system-ui, sans-serif; text-anchor: middle; dominant-baseline: central; }
+  .chip { animation: flota 4.5s ease-in-out infinite; animation-delay: var(--d, 0s); }
+
+  /* aviso animado sobre la captura: un logro conseguido jugando */
+  .captura { position: relative; }
+  .logro { position: absolute; right: 4%; bottom: 9%; display: flex; gap: 12px; align-items: center; text-align: left; padding: 12px 18px 12px 12px; border-radius: 14px;
+    background: rgba(22,20,40,.86); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.18); color: #fff; box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    animation: logro 8s ease-in-out infinite; opacity: 0; }
+  .logro-ico { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; color: #3a2a00; background: linear-gradient(135deg, #ffe07a, #f0a51e); }
+  .logro-ico svg { width: 24px; height: 24px; }
+  .logro strong { display: block; font-size: 15px; }
+  .logro small { opacity: .75; font-size: 13px; }
+  @keyframes logro { 0%, 8% { opacity: 0; transform: translateX(30px); } 14%, 70% { opacity: 1; transform: none; } 80%, 100% { opacity: 0; transform: translateY(10px); } }
+  @media (max-width: 600px) { .logro { transform: scale(.8) !important; right: 2%; bottom: 4%; transform-origin: bottom right; } }
+
+  /* aparición al hacer scroll */
+  .rev { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .rev.visto { opacity: 1; transform: none; }
+  .tarjeta.rev.visto:hover { transform: translateY(-3px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .logro { opacity: 1; } .onda { opacity: .25; } .renglon.dibuja { stroke-dashoffset: 0; }
+    .rev { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
+
+<!-- Iconos propios (24×24, trazo). Se usan con <svg><use href="#i-…"/></svg>. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-file-q" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M10 12.5a2 2 0 1 1 2.8 1.8c-.5.2-.8.6-.8 1.1v.4"/><path d="M12 18.5h.01"/></symbol>
+    <symbol id="i-folder-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v3"/><circle cx="17" cy="16" r="3"/><path d="M19.2 18.2L21.5 20.5"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10.5 10.5a1.5 1.5 0 1 1 2 1.4c-.4.2-.5.5-.5.8v.3M12 15h.01"/></symbol>
+    <symbol id="i-chip-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M9.5 12l1.7 1.7 3.3-3.4"/></symbol>
+    <symbol id="i-bridge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M3 18v-3a9 8 0 0 1 18 0v3"/><path d="M8 18v-5.5M12 18v-7M16 18v-5.5"/><path d="M2 8h3M19 8h3"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L20 3M17 6l3 3M14.5 8.5l2 2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></symbol>
+    <symbol id="i-file-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 15l2 2 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><path d="M12 15v2"/></symbol>
+    <symbol id="i-folder-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M10 11l4 4M14 11l-4 4"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.6 5.1A10 10 0 0 1 12 5c6 0 10 7 10 7a17 17 0 0 1-3.2 3.8M6.6 6.6C3.8 8.4 2 12 2 12s4 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v14H6a2 2 0 0 0-2 2.5z"/><path d="M4 19.5A2 2 0 0 0 6 21h14v-4"/><path d="M9 7h7M9 10.5h5"/></symbol>
+    <symbol id="i-link-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7a5 5 0 0 1 0-10h2M15 7h2a5 5 0 0 1 4 8"/><path d="M8 12h4"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4.5M16 6h3a3 3 0 0 1-3 4.5"/><path d="M12 13v4M8.5 21h7M9.5 17h5v4h-5z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
+    <symbol id="i-usb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M7 8h10v8a5 5 0 0 1-10 0z"/><path d="M11 4.5h.01M13 4.5h.01"/></symbol>
+  </defs>
+</svg>
 
 <header class="barra">
   <div class="ancho">
@@ -167,6 +252,11 @@
     <div class="captura">
       <img data-l="es" src="img/laurel-es.png" alt="Ventana principal de Laurel con una biblioteca de ejemplo" width="1550" height="1050">
       <img data-l="en" src="img/laurel-en.png" alt="Laurel main window with an example library" width="1550" height="1050">
+      <div class="logro" aria-hidden="true">
+        <span class="logro-ico"><svg><use href="#i-trophy"/></svg></span>
+        <div><strong><span data-l="es">¡Logro conseguido jugando!</span><span data-l="en">Achievement earned while playing!</span></strong>
+          <small>Aurora Rift · First step → Hydra ✓</small></div>
+      </div>
     </div>
   </div>
 </div>
@@ -176,13 +266,13 @@
     <h2><span data-l="es">¿Por qué algunos juegos no registran logros?</span><span data-l="en">Why don't some games record achievements?</span></h2>
     <p class="intro"><span data-l="es">Hydra lee los logros desde los archivos que escriben los emuladores de Steam. Si falta una pieza, juegas, consigues el logro… y Hydra nunca se entera.</span><span data-l="en">Hydra reads achievements from the files Steam emulators write. If a piece is missing, you play, you earn the achievement… and Hydra never finds out.</span></p>
     <div class="tres">
-      <div class="tarjeta"><span class="emoji">🧩</span>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-file-q"/></svg></span>
         <h3><span data-l="es">Falta la lista de logros</span><span data-l="en">The achievement list is missing</span></h3>
         <p><span data-l="es">Goldberg / gbe_fork necesita <code>steam_settings\achievements.json</code> y el AppID para saber qué logros existen. Sin ellos, no guarda nada.</span><span data-l="en">Goldberg / gbe_fork needs <code>steam_settings\achievements.json</code> and the AppID to know which achievements exist. Without them, it saves nothing.</span></p></div>
-      <div class="tarjeta"><span class="emoji">📂</span>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-folder-search"/></svg></span>
         <h3><span data-l="es">Se guardan donde Hydra no mira</span><span data-l="en">They're saved where Hydra doesn't look</span></h3>
         <p><span data-l="es">GOG Galaxy o RLE sí registran tus logros, pero en lugares que Hydra no lee.</span><span data-l="en">GOG Galaxy or RLE do record your achievements, but in places Hydra doesn't read.</span></p></div>
-      <div class="tarjeta"><span class="emoji">❓</span>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-chip"/></svg></span>
         <h3><span data-l="es">No sabes qué tiene cada juego</span><span data-l="en">You don't know what each game uses</span></h3>
         <p><span data-l="es">¿Es la DLL original de Valve, un emulador conocido o uno que no guarda logros? Sin mirar dentro, es imposible saberlo.</span><span data-l="en">Is it Valve's original DLL, a known emulator, or one that saves no achievements? Without looking inside, there's no way to tell.</span></p></div>
     </div>
@@ -216,25 +306,50 @@
     <h2><span data-l="es">Todo lo que hace</span><span data-l="en">Everything it does</span></h2>
     <p class="intro"><span data-l="es">Pensado para que Hydra registre lo que de verdad consigues, sin tocar lo que no le corresponde.</span><span data-l="en">Built so that Hydra records what you actually earn, without touching what isn't its business.</span></p>
     <div class="rejilla">
-      <div class="tarjeta"><span class="emoji">🔍</span><h3><span data-l="es">Identificador de DLL</span><span data-l="en">DLL identifier</span></h3><p><span data-l="es">Verifica la firma digital de <code>steam_api.dll</code> con Windows, sin internet, y busca firmas de 13 emuladores conocidos. Solo lectura.</span><span data-l="en">Verifies <code>steam_api.dll</code>'s digital signature with Windows, offline, and looks for signatures of 13 known emulators. Read-only.</span></p></div>
-      <div class="tarjeta"><span class="emoji">🌉</span><h3><span data-l="es">Puentes de logros</span><span data-l="en">Achievement bridges</span></h3><p><span data-l="es">Copia a Hydra los logros que <strong>ya conseguiste</strong> en GOG Galaxy o RLE. Lee una copia temporal de la base de datos, nunca la original. Nunca inventa logros.</span><span data-l="en">Copies the achievements you <strong>already earned</strong> in GOG Galaxy or RLE to Hydra. Reads a temporary copy of the database, never the original. Never invents achievements.</span></p></div>
-      <div class="tarjeta"><span class="emoji">🧭</span><h3><span data-l="es">Guía para juegos no soportados</span><span data-l="en">Guide for unsupported games</span></h3><p><span data-l="es">Copia de seguridad de la DLL, enlace oficial de gbe_fork y comprobación final. Tú haces el cambio: Laurel no descarga ni instala emuladores.</span><span data-l="en">DLL backup, official gbe_fork link and a final check. You make the change: Laurel doesn't download or install emulators.</span></p></div>
-      <div class="tarjeta"><span class="emoji">↩️</span><h3><span data-l="es">Todo se puede deshacer</span><span data-l="en">Everything can be undone</span></h3><p><span data-l="es">Anota cada archivo que crea. “Deshacer” los manda a la papelera, y solo si nadie los ha tocado después.</span><span data-l="en">Records every file it creates. “Undo” sends them to the Recycle Bin, and only if nobody touched them since.</span></p></div>
-      <div class="tarjeta"><span class="emoji">🔑</span><h3><span data-l="es">Tu clave de Steam, protegida</span><span data-l="en">Your Steam key, protected</span></h3><p><span data-l="es">La clave de API vive solo en memoria y nunca se guarda. Consultas pausadas y limitadas para un uso normal de tu clave.</span><span data-l="en">The API key lives only in memory and is never saved. Paced, capped requests so your key's usage stays normal.</span></p></div>
-      <div class="tarjeta"><span class="emoji">🌍</span><h3><span data-l="es">8 idiomas y versión portable</span><span data-l="en">8 languages and a portable build</span></h3><p><span data-l="es">Español, inglés, portugués, francés, alemán, ruso, chino y japonés. La versión portable no necesita instalar nada.</span><span data-l="en">Spanish, English, Portuguese, French, German, Russian, Chinese and Japanese. The portable build needs nothing installed.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-chip-check"/></svg></span><h3><span data-l="es">Identificador de DLL</span><span data-l="en">DLL identifier</span></h3><p><span data-l="es">Verifica la firma digital de <code>steam_api.dll</code> con Windows, sin internet, y busca firmas de 13 emuladores conocidos. Solo lectura.</span><span data-l="en">Verifies <code>steam_api.dll</code>'s digital signature with Windows, offline, and looks for signatures of 13 known emulators. Read-only.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-bridge"/></svg></span><h3><span data-l="es">Puentes de logros</span><span data-l="en">Achievement bridges</span></h3><p><span data-l="es">Copia a Hydra los logros que <strong>ya conseguiste</strong> en GOG Galaxy o RLE. Lee una copia temporal de la base de datos, nunca la original. Nunca inventa logros.</span><span data-l="en">Copies the achievements you <strong>already earned</strong> in GOG Galaxy or RLE to Hydra. Reads a temporary copy of the database, never the original. Never invents achievements.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-compass"/></svg></span><h3><span data-l="es">Guía para juegos no soportados</span><span data-l="en">Guide for unsupported games</span></h3><p><span data-l="es">Copia de seguridad de la DLL, enlace oficial de gbe_fork y comprobación final. Tú haces el cambio: Laurel no descarga ni instala emuladores.</span><span data-l="en">DLL backup, official gbe_fork link and a final check. You make the change: Laurel doesn't download or install emulators.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-undo"/></svg></span><h3><span data-l="es">Todo se puede deshacer</span><span data-l="en">Everything can be undone</span></h3><p><span data-l="es">Anota cada archivo que crea. “Deshacer” los manda a la papelera, y solo si nadie los ha tocado después.</span><span data-l="en">Records every file it creates. “Undo” sends them to the Recycle Bin, and only if nobody touched them since.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-key"/></svg></span><h3><span data-l="es">Tu clave de Steam, protegida</span><span data-l="en">Your Steam key, protected</span></h3><p><span data-l="es">La clave de API vive solo en memoria y nunca se guarda. Consultas pausadas y limitadas para un uso normal de tu clave.</span><span data-l="en">The API key lives only in memory and is never saved. Paced, capped requests so your key's usage stays normal.</span></p></div>
+      <div class="tarjeta"><span class="ico"><svg><use href="#i-globe"/></svg></span><h3><span data-l="es">8 idiomas y versión portable</span><span data-l="en">8 languages and a portable build</span></h3><p><span data-l="es">Español, inglés, portugués, francés, alemán, ruso, chino y japonés. La versión portable no necesita instalar nada.</span><span data-l="en">Spanish, English, Portuguese, French, German, Russian, Chinese and Japanese. The portable build needs nothing installed.</span></p></div>
     </div>
 
     <div class="dos" style="margin-top:56px">
-      <div class="marco"><img src="img/laurel-filter-en.png" alt="Filter by status" width="1550" height="1050" loading="lazy"></div>
+      <div class="ilus" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="gEscudo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#543cc8"/><stop offset="1" stop-color="#0a96a0"/></linearGradient>
+            <radialGradient id="gHalo"><stop offset="0" stop-color="#543cc8" stop-opacity=".28"/><stop offset="1" stop-color="#543cc8" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle cx="200" cy="200" r="195" fill="url(#gHalo)"/>
+          <circle class="onda" cx="200" cy="200" r="95"/>
+          <circle class="onda d2" cx="200" cy="200" r="95"/>
+          <circle class="onda d3" cx="200" cy="200" r="95"/>
+          <circle class="orbita" cx="200" cy="200" r="150"/>
+          <g class="flota">
+            <path d="M200 100l78 29v63c0 53-34 86-78 99-44-13-78-46-78-99v-63z" fill="url(#gEscudo)"/>
+            <path d="M200 116l62 23v52c0 43-27 70-62 81z" fill="#fff" opacity=".12"/>
+            <path d="M184 194v-14a16 16 0 0 1 32 0v14" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+            <rect x="172" y="192" width="56" height="44" rx="9" fill="#fff"/>
+            <circle cx="200" cy="210" r="6" fill="#543cc8"/><rect x="197.5" y="212" width="5" height="12" rx="2" fill="#543cc8"/>
+          </g>
+          <g class="sat" transform="translate(200 50)"><g class="bob" style="--d:0s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-file-check" x="-13" y="-13" width="26" height="26"/></g></g>
+          <g class="sat" transform="translate(330 125)"><g class="bob" style="--d:-.7s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-folder-x" x="-13" y="-13" width="26" height="26"/></g></g>
+          <g class="sat" transform="translate(330 275)"><g class="bob" style="--d:-1.4s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-link-off" x="-13" y="-13" width="26" height="26"/></g></g>
+          <g class="sat" transform="translate(200 350)"><g class="bob" style="--d:-2.1s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-globe" x="-13" y="-13" width="26" height="26"/></g></g>
+          <g class="sat" transform="translate(70 275)"><g class="bob" style="--d:-2.8s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-eye-off" x="-13" y="-13" width="26" height="26"/></g></g>
+          <g class="sat" transform="translate(70 125)"><g class="bob" style="--d:-3.5s"><circle class="sat-fondo" r="28"/><use class="sat-ico" href="#i-book" x="-13" y="-13" width="26" height="26"/></g></g>
+        </svg>
+      </div>
       <div>
         <h3 style="font-size:24px;margin:0 0 8px"><span data-l="es">Seguro por diseño</span><span data-l="en">Secure by design</span></h3>
-        <ul class="check">
-          <li><span data-l="es">Nunca sobrescribe ni borra tus archivos: solo crea los que faltan.</span><span data-l="en">Never overwrites or deletes your files: it only creates missing ones.</span></li>
-          <li><span data-l="es">Solo puede escribir 4 tipos de archivo concretos; cualquier otra ruta se bloquea.</span><span data-l="en">It can only write 4 specific kinds of file; any other path is blocked.</span></li>
-          <li><span data-l="es">No escanea carpetas del sistema, no sigue enlaces simbólicos ni descarga archivos de OneDrive.</span><span data-l="en">Doesn't scan system folders, follow symbolic links or download OneDrive files.</span></li>
-          <li><span data-l="es">Solo se conecta a <code>api.steampowered.com</code> por HTTPS. Nunca ejecuta programas de tus juegos.</span><span data-l="en">Only connects to <code>api.steampowered.com</code> over HTTPS. Never runs programs from your games.</span></li>
-          <li><span data-l="es">Registro sin datos personales y modo simulación para ver qué haría antes de hacerlo.</span><span data-l="en">A log without personal data, and a simulation mode to see what it would do first.</span></li>
-          <li><span data-l="es">El manual va dentro del .exe: aunque alguien edite los archivos de la carpeta, la app muestra el original.</span><span data-l="en">The manual is built into the .exe: even if someone edits the files in the folder, the app shows the original.</span></li>
+        <ul class="iconos">
+          <li><span class="li-ico"><svg><use href="#i-file-check"/></svg></span><div><span data-l="es">Nunca sobrescribe ni borra tus archivos: solo crea los que faltan.</span><span data-l="en">Never overwrites or deletes your files: it only creates missing ones.</span></div></li>
+          <li><span class="li-ico"><svg><use href="#i-lock"/></svg></span><div><span data-l="es">Solo puede escribir 4 tipos de archivo concretos; cualquier otra ruta se bloquea.</span><span data-l="en">It can only write 4 specific kinds of file; any other path is blocked.</span></div></li>
+          <li><span class="li-ico"><svg><use href="#i-folder-x"/></svg></span><div><span data-l="es">No escanea carpetas del sistema, no sigue enlaces simbólicos ni descarga archivos de OneDrive.</span><span data-l="en">Doesn't scan system folders, follow symbolic links or download OneDrive files.</span></div></li>
+          <li><span class="li-ico"><svg><use href="#i-globe"/></svg></span><div><span data-l="es">Solo se conecta a <code>api.steampowered.com</code> por HTTPS. Nunca ejecuta programas de tus juegos.</span><span data-l="en">Only connects to <code>api.steampowered.com</code> over HTTPS. Never runs programs from your games.</span></div></li>
+          <li><span class="li-ico"><svg><use href="#i-eye-off"/></svg></span><div><span data-l="es">Registro sin datos personales y modo simulación para ver qué haría antes de hacerlo.</span><span data-l="en">A log without personal data, and a simulation mode to see what it would do first.</span></div></li>
+          <li><span class="li-ico"><svg><use href="#i-book"/></svg></span><div><span data-l="es">El manual va dentro del .exe: aunque alguien edite los archivos de la carpeta, la app muestra el original.</span><span data-l="en">The manual is built into the .exe: even if someone edits the files in the folder, the app shows the original.</span></div></li>
         </ul>
       </div>
     </div>
@@ -316,12 +431,14 @@
     <p class="intro"><span data-l="es">Gratis, de uso libre y software libre (GPL-3.0). Para Windows 10 y 11 (64 bits).</span><span data-l="en">Free to use and free software (GPL-3.0). For Windows 10 and 11 (64-bit).</span></p>
     <div class="descargas">
       <div class="tarjeta descarga">
+        <span class="ico"><svg><use href="#i-download"/></svg></span>
         <h3><span data-l="es">Normal</span><span data-l="en">Standard</span></h3>
         <div class="peso">≈ 0,8 MB · <span data-l="es">necesita</span><span data-l="en">requires</span> <a href="https://dotnet.microsoft.com/download/dotnet/10.0" rel="noopener">.NET 10 Desktop Runtime</a></div>
         <p><span data-l="es">La opción más ligera si ya tienes .NET 10 o no te importa instalarlo.</span><span data-l="en">The lightest option if you already have .NET 10 or don't mind installing it.</span></p>
         <a class="boton" data-repo="/releases/latest">⬇ <span data-l="es">Descargar .exe</span><span data-l="en">Download .exe</span></a>
       </div>
       <div class="tarjeta descarga portable">
+        <span class="ico" style="color:var(--verde)"><svg><use href="#i-usb"/></svg></span>
         <h3>Portable</h3>
         <div class="peso">≈ 44 MB · <span data-l="es">sin instalar nada</span><span data-l="en">nothing to install</span></div>
         <p><span data-l="es">Lleva .NET dentro y guarda su configuración en su propia carpeta. Ideal para un USB.</span><span data-l="en">Carries .NET inside and keeps its settings in its own folder. Great for a USB drive.</span></p>
@@ -341,7 +458,38 @@
         <details><summary><span data-l="es">¿Instala o descarga emuladores?</span><span data-l="en">Does it install or download emulators?</span></summary>
           <p><span data-l="es">No. Para los juegos NO SOPORTADO ofrece una guía con copia de seguridad y el enlace oficial de gbe_fork, pero el cambio lo haces tú.</span><span data-l="en">No. For UNSUPPORTED games it offers a guide with a backup and gbe_fork's official link, but you make the change yourself.</span></p></details>
       </div>
-      <div class="marco"><img src="img/laurel-readme-es.png" alt="Manual integrado / Built-in manual" width="1125" height="1025" loading="lazy"></div>
+      <div class="ilus" aria-hidden="true">
+        <svg viewBox="0 0 400 360">
+          <defs>
+            <linearGradient id="gLibro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#543cc8"/><stop offset="1" stop-color="#0a96a0"/></linearGradient>
+            <radialGradient id="gHalo2"><stop offset="0" stop-color="#0a96a0" stop-opacity=".22"/><stop offset="1" stop-color="#0a96a0" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle cx="200" cy="185" r="175" fill="url(#gHalo2)"/>
+          <g class="flota">
+            <path d="M200 112C168 96 122 96 88 108v150c34-12 80-12 112 4z" fill="url(#gLibro)" transform="translate(-6 6)" opacity=".35"/>
+            <path class="pagina" d="M200 112C168 96 122 96 88 108v150c34-12 80-12 112 4z"/>
+            <path class="pagina" d="M200 112c32-16 78-16 112-4v150c-34-12-80-12-112 4z"/>
+            <path d="M200 112v150" stroke="url(#gLibro)" stroke-width="4"/>
+            <line class="renglon dibuja" x1="108" y1="140" x2="182" y2="134"/>
+            <line class="renglon dibuja r2" x1="108" y1="164" x2="182" y2="158"/>
+            <line class="renglon dibuja r3" x1="108" y1="188" x2="168" y2="183"/>
+            <line class="renglon dibuja r4" x1="108" y1="212" x2="182" y2="206"/>
+            <circle cx="256" cy="168" r="34" fill="url(#gLibro)"/>
+            <use href="#i-trophy" x="238" y="150" width="36" height="36" style="color:#fff"/>
+            <line class="renglon" x1="226" y1="224" x2="290" y2="218"/>
+            <g transform="translate(300 252)"><circle r="20" fill="#16965a"/><use href="#i-lock" x="-11" y="-11" width="22" height="22" style="color:#fff"/></g>
+          </g>
+          <g class="chip" style="--d:0s"><rect x="40" y="52" width="48" height="30" rx="15"/><text x="64" y="67">ES</text></g>
+          <g class="chip" style="--d:-.6s"><rect x="150" y="24" width="48" height="30" rx="15"/><text x="174" y="39">EN</text></g>
+          <g class="chip" style="--d:-1.2s"><rect x="262" y="40" width="48" height="30" rx="15"/><text x="286" y="55">PT</text></g>
+          <g class="chip" style="--d:-1.8s"><rect x="336" y="128" width="48" height="30" rx="15"/><text x="360" y="143">FR</text></g>
+          <g class="chip" style="--d:-2.4s"><rect x="16" y="160" width="48" height="30" rx="15"/><text x="40" y="175">DE</text></g>
+          <g class="chip" style="--d:-3s"><rect x="40" y="288" width="48" height="30" rx="15"/><text x="64" y="303">RU</text></g>
+          <g class="chip" style="--d:-3.6s"><rect x="150" y="300" width="56" height="30" rx="15"/><text x="178" y="315">中文</text></g>
+          <g class="chip" style="--d:-4.2s"><rect x="330" y="290" width="68" height="30" rx="15"/><text x="364" y="305">日本語</text></g>
+        </svg>
+        <p class="pie"><span data-l="es">El manual completo viene dentro de la app, en 8 idiomas.</span><span data-l="en">The full manual comes inside the app, in 8 languages.</span></p>
+      </div>
     </div>
   </div>
 </section>
@@ -376,6 +524,21 @@
   try { guardado = localStorage.getItem("laurel-idioma"); } catch (e) {}
   usar(guardado || ((navigator.language || "es").toLowerCase().startsWith("es") ? "es" : "en"));
   document.getElementById("cambiar").addEventListener("click", () => usar(raiz.lang === "es" ? "en" : "es"));
+
+  // Aparición suave al hacer scroll (solo si el visitante no pidió reducir el movimiento).
+  if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visto"); obs.unobserve(e.target);
+        setTimeout(() => { e.target.style.transitionDelay = ""; }, 1000); // el hover no debe heredar el retraso
+      }
+    }), { threshold: 0.12 });
+    document.querySelectorAll("section h2, section .intro, .tarjeta, .estado, .ilus, ul.iconos li, .filosofia, .tabla-env, .juntos, details").forEach((el, i) => {
+      el.classList.add("rev");
+      el.style.transitionDelay = (i % 4) * 70 + "ms";
+      obs.observe(el);
+    });
+  }
 </script>
 </body>
 </html>
