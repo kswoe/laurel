@@ -15,8 +15,8 @@ Windows 10/11 (64-bit) — [Releases](../../releases/latest)
 
 | | |
 |---|---|
-| `Laurel.exe` | ≈ 0.8 MB · necesita / requires [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) |
-| `Laurel-portable.zip` | ≈ 44 MB · portable, sin instalar nada / nothing to install |
+| `Laurel_vX.Y.Z.exe` | ≈ 0.8 MB · necesita / requires [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) |
+| `Laurel_vX.Y.Z-portable.zip` | ≈ 44 MB · portable, sin instalar nada / nothing to install |
 
 ## Documentación · Documentation
 - [Español](LEEME.md) · [English](leeme/README.en.md) · [Português](leeme/README.pt-BR.md) · [Français](leeme/README.fr.md) · [Deutsch](leeme/README.de.md) · [Русский](leeme/README.ru.md) · [简体中文](leeme/README.zh-CN.md) · [日本語](leeme/README.ja.md)
